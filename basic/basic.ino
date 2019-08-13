@@ -668,3 +668,11 @@ void MPU6050SelfTest(float * destination) // Should return percent deviation fro
 	while (Wire.available()) {
         dest[i++] = Wire.read(); }         // Put read results in the Rx buffer
 }
+
+void movingMean(float maN_prvs, float newelem, int N)
+{
+  // Ref: https://daycounter.com/LabBook/Moving-Average.phtml
+  // MAt = MAt-1 + Xt/N - MAt-1/N
+  // MAt*N = MAt-1*N + Xt - MAt-1/N
+  return maN_prvs*N + newelem - maN_prvs/N;
+}
